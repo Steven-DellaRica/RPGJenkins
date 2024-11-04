@@ -41,13 +41,13 @@ class CharacterTest {
 
     @Test
     public void testCompleteQuestIncreasesExperience() {
-        mage.completeQuest(easyQuest);
-        assertEquals(50, mage.getExperience());
-        assertEquals(1, mage.getLevel()); // Niveau doit rester à 1
+        warrior.completeQuest(easyQuest);
+        assertEquals(50, warrior.getExperience());
+        assertEquals(1, warrior.getLevel()); // Niveau doit rester à 1
 
-        mage.completeQuest(hardQuest);
-        assertTrue(mage.getExperience() >= 100);
-        assertEquals(2, mage.getLevel());
+        warrior.completeQuest(hardQuest);
+        assertTrue(warrior.getExperience() >= 100);
+        assertEquals(2, warrior.getLevel());
     }
 
     @Test
