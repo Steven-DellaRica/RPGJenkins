@@ -7,11 +7,16 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<Character> characters = new ArrayList<>();
+    private static ArrayList<Quest> quests = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         characters.add(new Archer("Legolas"));
         characters.add(new Mage("Gandalf"));
+
+        quests.add(new Quest("Aller chercher les poulets perdus", "Facile", 50));
+        quests.add(new Quest("Tuer un monstre", "Moyen", 75));
+        quests.add(new Quest("Sauver le monde", "Difficile", 150));
 
         boolean running = true;
         while (running) {
@@ -20,7 +25,8 @@ public class Main {
             System.out.println("2. Ajouter un personnage");
             System.out.println("3. Modifier un personnage");
             System.out.println("4. Supprimer un personnage");
-            System.out.println("5. Quitter");
+            System.out.println("5. Faire une quête");
+            System.out.println("6. Quitter");
 
             int choice = getUserChoice();
 
@@ -38,6 +44,9 @@ public class Main {
                     deleteCharacter();
                     break;
                 case 5:
+                    characterCompleteQuest();
+                    break;
+                case 6:
                     running = false;
                     break;
                 default:
@@ -68,6 +77,12 @@ public class Main {
     private static void displayCharacter() {
         for (int i = 0; i < characters.size(); i++) {
             System.out.println((i+1) + ". " + characters.get(i));
+        }
+    }
+
+    private static void displayQuest() {
+        for (int i = 0; i < quests.size(); i++) {
+            System.out.println((i+1) + ". " + quests.get(i));
         }
     }
 
@@ -110,6 +125,24 @@ public class Main {
             System.out.println("Personnage supprimé");
         } else {
             System.out.println("Personnage non trouvé");
+        }
+    }
+
+    private static void characterCompleteQuest() {
+        displayCharacter();
+        System.out.println("Choisissez un personnage à envoyer faire une quête (par numéro) :");
+        int index = scanner.nextInt() - 1;
+        if(index >= 0 && index < characters.size()) {
+            displayQuest();
+            System.out.println("Quel quête voulez vous effectuer ?");
+            int index2 = scanner.nextInt() - 1;
+            if(index2 >= 0 && index < quests.size())
+            {
+                characters.get(index).completeQuest(quests.get(index2));
+            }
+
+        } else {
+            System.out.println("Personnage non trouvé.");
         }
     }
 }
